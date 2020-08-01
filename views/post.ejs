@@ -1,0 +1,52 @@
+<%- include('header') %>
+<div class="media container mt-5">
+  <%- include('components/avatar', { user: post.author }) %>
+  <div class="media-body rounded shadow p-3">
+    <h5><%= post.title %></h5>
+    <hr>
+    <article>
+      <%- post.content %>
+    </article>
+    <div class="comments-container mt-5">
+      <h5><strong>留言</strong></h5>
+      <hr>
+      <% comments.forEach(comment => { %>
+      <div class="media container">
+        <%- include('components/avatar', { user: comment.author }) %>
+        <div class="media-body">
+          <p>
+            <strong><%= comment.author.name %></strong>
+            <small><%= comment.createdAt %></small>
+            <% if (user && comment.author._id.toString() === user._id.toString()) { %>
+            <a href="/comments/<%= comment._id %>/remove"
+               class="float-right">删除</a>
+            <% } %>
+          </p>
+          <article>
+            <%- comment.content %>
+          </article>
+        </div>
+      </div>
+      <% }) %>
+      <form action="/comments"
+            method="post">
+        <div class="form-group">
+          <input type="text"
+                 name="postId"
+                 value="<%= post._id %>"
+                 hidden>
+        </div>
+        <div class="form-group">
+          <textarea name="content"
+                    id="comment-content"
+                    cols="30"
+                    rows="10"
+                    class="form-control"></textarea>
+        </div>
+        <button type="submit"
+                class="btn btn-success">留言</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include('footer') %>

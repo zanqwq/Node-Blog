@@ -1,0 +1,32 @@
+<%- include('header') %>
+<% posts.forEach(post => { %>
+<div class="media container mt-5">
+  <%- include('components/avatar', { user: post.author }) %>
+  <div class="media-body p-3 rounded shadow">
+    <h5><a href="/posts/<%= post._id %>"><%= post.title %></a></h5>
+    <hr>
+    <small class='float-left'><%= post.createdAt %></small>
+    <div class="float-right">
+      <small>浏览(<%= post.pv %>)</small>
+      <small>评论(<%= post.commentsCnt %>)</small>
+      <% if (user && post.author._id.toString() === user._id.toString()) { %>
+      <div class="btn-group">
+        <button type="button"
+                class="btn dropdown-toggle dropdown-toggle-split"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item"
+             href="/posts/<%= post.id %>/remove">删除</a>
+             <a href="/posts/<%= post.id %>/edit" class="dropdown-item">编辑</a>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<% }) %>
+<%- include('footer') %>

@@ -1,0 +1,10 @@
+<a href="/posts?author=<%= user._id %>">
+    <img src="/img/<%= user.avatar %>"
+         style="width: 50px; height: 50px;"
+         class="mr-3"
+         data-toggle="popover"
+         title="<%= user.name %>"
+         data-content="<%= user.bio %>"
+         data-placement="bottom"
+         alt="user-avatar">
+</a>
